@@ -1,0 +1,50 @@
+{
+    "atomic blocks":"file", "text", "wswig", "number", "boolean"
+}
+
+Data Structure
+{
+    "name":"Product",
+    "content": [
+        {
+            "type": "text",
+            "name" : "productBoxTitle",
+            "label": "Nadpis na produktovem boxu.",
+            "multiple": false
+        },
+        {
+            "type": "file",
+            "name": "productBoxImage",
+            "label": "Obrazek na produktovem boxu.",
+            "multiple": false
+        }
+    ]
+}
+
+=>
+
+Class Product(db.Model):
+    productBoxTitle = db.Cloumn(db.String(50))
+    productBoxImageUrl = db.Column(sb.String(50))
+    productBoxImageAlt = db.Column(sb.String(100))
+    productBoxImageTitle = db.Column(sb.String(50))
+
+
+/api call 
+/api/v1/houby/product/<id> GET METHOD, PUT METHOD, DELETE METHOD - rozdelit si hezky
+
+/api/v1/houby/product POST METHOD
+
+/api/v1/houby/products GET METHOD
+
+/pozdeji search atd.
+
+/strankovani
+
+
+generovani python kodu 
+
+Page content
+{
+    "name":"title"
+}
