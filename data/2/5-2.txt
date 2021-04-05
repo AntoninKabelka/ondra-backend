@@ -1,0 +1,1 @@
+[{"label":"100-7","answer":"100"},{"label":"předchozí výsledek - 7","answer":"93"},{"label":"předchozí výsledek - 7","answer":"1231"},{"label":"předchozí výsledek - 7","answer":"21"},{"label":"předchozí výsledek - 7","answer":"2"}]

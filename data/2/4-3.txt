@@ -1,0 +1,1 @@
+[{"label":"číslo","answer":"2"},{"label":"číslo","answer":"4"},{"label":"číslo","answer":"7"}]

@@ -9,6 +9,8 @@ class Test(db.Model):
     name = db.Column(db.String(100))
     technical_skill = db.Column(db.Integer)
     version = db.Column(db.String(10))
+    age = db.Column(db.String(10))
+    gender = db.Column(db.String(10))
 
 @app.route('/info')
 @app.route('/')
@@ -49,7 +51,9 @@ def create_test_db():
     new_test = Test(
 	    name = data['name'],
 		technical_skill = data['skill'],
-        version = data['version']
+        version = data['version'],
+        age = data['age'],
+        gender = data['gender']
     )
 
     db.session.add(new_test)
@@ -72,4 +76,16 @@ def create_test_db():
 def get_file():
     path = os.getcwd()
     print(path)
-    return send_from_directory(os.path.join(path, app.config['UPLOAD_PATH'], '75'), '10-2.wav')
+    return send_from_directory(os.path.join(path, app.config['UPLOAD_PATH'], '16'), '10-1.wav')
+
+@app.route("/api/v1/test/<id>")
+def get_test(id):
+    test = Test.query.get_or_404(id)
+    data = {}
+    data['id'] = test.id
+    data['name'] = test.name
+    data['age'] = test.age
+    data['technical_skill'] = test.technical_skill
+    data['version'] = test.version
+    data['gender'] = test.gender
+    return jsonify({ "test" : data })

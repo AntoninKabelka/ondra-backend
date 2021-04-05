@@ -1,0 +1,1 @@
+[{"label":"Jaký je název tohoto místa a města ve kterém jsme?","answer":""}]
