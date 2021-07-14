@@ -1,8 +1,17 @@
 import os
+from os import listdir
+from os.path import isfile, join
 from app import app, db
 from flask import request, jsonify, redirect, url_for, send_from_directory, render_template, send_file
 from werkzeug.utils import secure_filename
 import datetime
+
+DATA_PATH= 'data/'
+
+def get_dir_files(mypath):
+	mypath = DATA_PATH + mypath
+	onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+	return onlyfiles
 
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -89,3 +98,25 @@ def get_test(id):
     data['version'] = test.version
     data['gender'] = test.gender
     return jsonify({ "test" : data })
+
+@app.route("/results")
+def result_list():
+	tests = Test.query.all()
+	return render_template('test_list.html', tests=tests)
+
+@app.route("/test-detail/<id>")
+def test_detail(id):
+	test = Test.query.filter_by(id=id).first()
+	list_of_filenames = get_dir_files(str(id))
+	data = {}
+	for filename in list_of_filenames:
+		number = int(filename[:1])
+		if number in data.keys():
+			data[number].append(filename)
+		else:
+			data[number] = [filename]
+
+	return render_template('test_detail.html', test=test, data=data)
+
+	#todo -> udelat vypisovani zvuku
+	#todo -> udelat vypisovani grafu pro klikaci if long and cislo/short a cislo - tak nacte data, a posle je special

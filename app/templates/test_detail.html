@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Detail testu: {{test.name}}</title>
+	<style>
+		body{
+			padding: 2rem;
+		}
+	</style>
+  </head>
+  <body>
+    <h1>Detail testu: {{test.name}}</h1>
+	<h2>Info o testovanem:</h2>
+	<table class="table">
+		<tr>
+			<th>ID</td>
+			<th>Jmeno testovaneho</th>
+			<th>technicka zdatnost</th>
+			<th>verze testu</th>
+			<th>pohlavi</th>
+			<th>vek</th>
+		</tr>
+		<tr>
+			<td>{{test.id}}</td>
+			<td>{{test.name}}</td>
+			<td>{{test.technical_skill}}</td>
+			<td>{{test.version}}</td>
+			<td>{{test.gender}}</td>
+			<td>{{test.age}}</td>
+		</tr>
+	</table>
+	<h2>Results:</h2>
+	{% for key in data %}
+		<div class="card">
+			<h1>Cviceni: {{key}}</h1>
+			
+			{% for result in data[key] %}
+			<div class="card">
+				Krok: {{loop.index}}
+				
+				{% if 'txt' in result%}
+				{% if data[key]|length > 1 %}
+				<object data="{{url_for('static', filename=test.id|string + '/' + result)}}" width="700" height="100">
+					Not supported
+					</object>
+				
+					{% else %}
+					<object data="{{url_for('static', filename=test.id|string + '/' + result)}}" width="700" height="100">
+						Not supported
+						</object>
+					
+					
+					{% endif %}
+				
+				{% endif %}
+				{% if 'png' in result%}
+					{% if data[key]|length > 1 %}
+					<img width="500" src="{{url_for('static', filename=test.id|string + '/' + result)}}">
+					{% else %}
+					<img width="500" src="{{url_for('static', filename=test.id|string + '/' + result)}}">
+					
+					{% endif %}
+					{% endif %}
+				{% if 'wav' in result%}
+					
+					<audio controls>
+						<source src="{{url_for('static', filename=test.id|string + '/' + result)}}" type="audio/wav">
+					  Your browser does not support the audio element.
+					</audio>
+
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+
+	{% endfor %}
+  </body>
+</html>
